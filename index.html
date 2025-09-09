@@ -2556,6 +2556,27 @@
             return nameValid && contactValid;
         }
 
+        // === FUNZIONI DOWNLOAD IMMAGINE ===
+        function downloadCustomImage() {
+            if (!customImageData) {
+                showNotification('❌ Nessuna immagine da scaricare! 🖼️', 'error');
+                return;
+            }
+            
+            try {
+                const link = document.createElement('a');
+                link.href = customImageData.data;
+                link.download = customImageData.name;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showNotification('📥 Immagine scaricata! ✅', 'success');
+            } catch (error) {
+                showNotification('❌ Errore durante il download! 🔄', 'error');
+            }
+        }
+
         // === CONDIVISIONE ===
         function copyConfigurationText() {
             if (!validateAllFields()) {
@@ -2613,6 +2634,7 @@
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
                 configText += `🖼️ Immagine Personalizzata: ${customImageData.name} (${formatFileSize(customImageData.size)})\n`;
+                configText += `💡 NOTA: L'immagine è stata scaricata automaticamente per l'allegato\n`;
             }
             
             configText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -2624,6 +2646,11 @@
             configText += `🌟 Dove nascono le leggende del gaming!\n`;
             configText += `📷 Seguici su Instagram: @retroavia_\n`;
             configText += `🎮 Il tuo Game Boy sarà unico al mondo! ✨`;
+            
+            // Se c'è un'immagine personalizzata, scaricala automaticamente
+            if (customImageData) {
+                downloadCustomImage();
+            }
             
             navigator.clipboard.writeText(configText).then(() => {
                 showNotification('📋 Configurazione copiata negli appunti! ✅', 'success');
@@ -2663,6 +2690,9 @@
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
                 bodyText += `\n🖼️ Immagine personalizzata: ${customImageData.name}\n`;
+                bodyText += `💡 IMPORTANTE: Allega manualmente l'immagine che è stata scaricata automaticamente.\n`;
+                // Scarica automaticamente l'immagine
+                downloadCustomImage();
             }
             
             bodyText += `\n🚀 Creato con RetroAvia!`;
@@ -2672,7 +2702,13 @@
             
             try {
                 window.open(mailtoLink);
-                showNotification('📧 Email preparata! ✅', 'success');
+                if (customImageData) {
+                    setTimeout(() => {
+                        showNotification('📧 Email preparata! 📎 Ricordati di allegare l\'immagine scaricata! ✅', 'success');
+                    }, 500);
+                } else {
+                    showNotification('📧 Email preparata! ✅', 'success');
+                }
             } catch (error) {
                 showNotification('❌ Errore apertura email! 🔄', 'error');
             }
@@ -2698,6 +2734,9 @@
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
                 text += `\n🖼️ Immagine personalizzata: ${customImageData.name}\n`;
+                text += `💡 Invierò l'immagine in un messaggio separato\n`;
+                // Scarica automaticamente l'immagine
+                downloadCustomImage();
             }
             
             text += `\n🚀 Creato con RetroAvia!`;
@@ -2706,7 +2745,13 @@
             
             try {
                 window.open(whatsappLink, '_blank');
-                showNotification('📱 WhatsApp aperto! ✅', 'success');
+                if (customImageData) {
+                    setTimeout(() => {
+                        showNotification('📱 WhatsApp aperto! 📎 Invia l\'immagine scaricata in un messaggio separato! ✅', 'success');
+                    }, 500);
+                } else {
+                    showNotification('📱 WhatsApp aperto! ✅', 'success');
+                }
             } catch (error) {
                 showNotification('❌ Errore apertura WhatsApp! 🔄', 'error');
             }
@@ -2729,13 +2774,19 @@
             let text = `🎮 RETROAVIA\n\n🦸‍♂️ Supereroe: ${heroName}\n💰 Totale: ${total}€\n`;
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                text += `\n🖼️ Immagine personalizzata caricata! 🎨\n`;
+                text += `\n🖼️ Design personalizzato pronto! 🎨\n`;
+                // Scarica automaticamente l'immagine
+                downloadCustomImage();
             }
             
             text += `\n#RetroAvia #GameBoy #Retrogaming`;
             
             navigator.clipboard.writeText(text).then(() => {
-                showNotification('📷 Testo copiato! Aprendo Instagram... ✅', 'success');
+                if (customImageData) {
+                    showNotification('📷 Testo copiato e immagine scaricata! Aprendo Instagram... ✅', 'success');
+                } else {
+                    showNotification('📷 Testo copiato! Aprendo Instagram... ✅', 'success');
+                }
                 setTimeout(() => {
                     window.open('https://www.instagram.com/retroavia_/', '_blank');
                 }, 1000);
