@@ -2676,6 +2676,8 @@
             }
             
             const customerName = document.getElementById('customer-name')?.value || 'Cliente';
+            const customerContact = document.getElementById('customer-contact')?.value || 'Non specificato';
+            const customerNotes = document.getElementById('customer-notes')?.value || 'Nessuna nota';
             const orderId = document.getElementById('order-code')?.textContent || 'RETRO-001';
             const heroName = document.getElementById('hero-name')?.textContent || 'Captain Pixel';
             
@@ -2686,28 +2688,64 @@
                 }
             });
             
-            let bodyText = `🎮 RETROAVIA\n\n👤 Cliente: ${customerName} (${heroName})\n💰 Totale: ${total}€\n`;
+            let bodyText = `🎮 RETROAVIA - ORDINE COMPLETO\n\n`;
+            bodyText += `👤 DATI CLIENTE:\n`;
+            bodyText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            bodyText += `📝 Nome: ${customerName} (${heroName})\n`;
+            bodyText += `📧 Contatto: ${customerContact}\n`;
+            bodyText += `💭 Note: ${customerNotes}\n`;
+            bodyText += `🆔 Codice: ${orderId}\n`;
+            bodyText += `📅 Data: ${new Date().toLocaleDateString('it-IT')}\n\n`;
+            
+            bodyText += `⚡ CONFIGURAZIONE DETTAGLIATA:\n`;
+            bodyText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            
+            const configLabels = {
+                'gameboy-model': '🎮 Modello Game Boy',
+                'modification-level': '🛠️ Livello Modifica',
+                'shell-color': '🎨 Colore Scocca',
+                'label': '🏷️ Etichetta',
+                'battery': '🔋 Batteria',
+                'audio': '🔊 Audio',
+                'display': '📺 Display',
+                'led-kit': '💡 Kit LED',
+                'custom-box': '📦 Box Personalizzato',
+                'transparent-cover': '🔍 Cover Trasparente',
+                'customer-gameboy': '✅ Game Boy Cliente'
+            };
+            
+            Object.entries(configuration).forEach(([key, value]) => {
+                if (value && value.name) {
+                    const label = configLabels[key];
+                    const priceText = value.price > 0 ? ` (+${value.price}€)` : value.price < 0 ? ` (${value.price}€)` : ' (incluso)';
+                    bodyText += `${label}: ${value.name}${priceText}\n`;
+                }
+            });
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                bodyText += `\n🖼️ Immagine personalizzata: ${customImageData.name}\n`;
-                bodyText += `💡 IMPORTANTE: Allega manualmente l'immagine che è stata scaricata automaticamente.\n`;
-                // Scarica automaticamente l'immagine
+                bodyText += `\n🖼️ IMMAGINE PERSONALIZZATA:\n`;
+                bodyText += `Nome file: ${customImageData.name}\n`;
+                bodyText += `Dimensione: ${formatFileSize(customImageData.size)}\n`;
+                bodyText += `💡 IMPORTANTE: Allega l'immagine scaricata automaticamente\n`;
                 downloadCustomImage();
             }
             
-            bodyText += `\n🚀 Creato con RetroAvia!`;
+            bodyText += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            bodyText += `💰 TOTALE ORDINE: ${total}€\n\n`;
+            bodyText += `🚀 Ordine generato automaticamente da RetroAvia\n`;
+            bodyText += `📷 Instagram: @retroavia_`;
             
-            const subject = `🎮 RetroAvia - Configurazione ${heroName} (${orderId})`;
+            const subject = `🎮 RetroAvia - ORDINE ${heroName} (${orderId}) - ${total}€`;
             const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
             
             try {
                 window.open(mailtoLink);
                 if (customImageData) {
                     setTimeout(() => {
-                        showNotification('📧 Email preparata! 📎 Ricordati di allegare l\'immagine scaricata! ✅', 'success');
+                        showNotification('📧 Email con ordine completo preparata! 📎 Ricordati di allegare l\'immagine! ✅', 'success');
                     }, 500);
                 } else {
-                    showNotification('📧 Email preparata! ✅', 'success');
+                    showNotification('📧 Email con ordine completo preparata! ✅', 'success');
                 }
             } catch (error) {
                 showNotification('❌ Errore apertura email! 🔄', 'error');
@@ -2721,6 +2759,9 @@
             }
             
             const customerName = document.getElementById('customer-name')?.value || 'Cliente';
+            const customerContact = document.getElementById('customer-contact')?.value || 'Non specificato';
+            const customerNotes = document.getElementById('customer-notes')?.value || 'Nessuna nota';
+            const orderId = document.getElementById('order-code')?.textContent || 'RETRO-001';
             const heroName = document.getElementById('hero-name')?.textContent || 'Captain Pixel';
             
             let total = 0;
@@ -2730,16 +2771,48 @@
                 }
             });
             
-            let text = `🎮 *RETROAVIA*\n\n👤 Cliente: ${customerName} (${heroName})\n💰 Totale: ${total}€\n`;
+            let text = `🎮 *RETROAVIA - ORDINE COMPLETO*\n\n`;
+            text += `👤 *CLIENTE:*\n`;
+            text += `📝 ${customerName} (${heroName})\n`;
+            text += `📧 ${customerContact}\n`;
+            text += `🆔 ${orderId}\n\n`;
+            
+            text += `⚡ *CONFIGURAZIONE:*\n`;
+            
+            const configLabels = {
+                'gameboy-model': '🎮 Modello',
+                'modification-level': '🛠️ Modifica',
+                'shell-color': '🎨 Colore',
+                'label': '🏷️ Etichetta',
+                'battery': '🔋 Batteria',
+                'audio': '🔊 Audio',
+                'display': '📺 Display',
+                'led-kit': '💡 LED',
+                'custom-box': '📦 Box',
+                'transparent-cover': '🔍 Cover',
+                'customer-gameboy': '✅ GB Cliente'
+            };
+            
+            Object.entries(configuration).forEach(([key, value]) => {
+                if (value && value.name) {
+                    const label = configLabels[key];
+                    const priceText = value.price > 0 ? ` (+${value.price}€)` : value.price < 0 ? ` (${value.price}€)` : '';
+                    text += `${label}: ${value.name}${priceText}\n`;
+                }
+            });
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                text += `\n🖼️ Immagine personalizzata: ${customImageData.name}\n`;
-                text += `💡 Invierò l'immagine in un messaggio separato\n`;
-                // Scarica automaticamente l'immagine
+                text += `\n🖼️ *Immagine:* ${customImageData.name}\n`;
+                text += `💡 _Invierò l'immagine separatamente_\n`;
                 downloadCustomImage();
             }
             
-            text += `\n🚀 Creato con RetroAvia!`;
+            if (customerNotes.trim() !== '' && customerNotes !== 'Nessuna nota') {
+                text += `\n💭 *Note:* ${customerNotes}\n`;
+            }
+            
+            text += `\n💰 *TOTALE: ${total}€*\n\n`;
+            text += `🚀 _Ordine da RetroAvia_`;
             
             const whatsappLink = `https://wa.me/?text=${encodeURIComponent(text)}`;
             
@@ -2747,10 +2820,10 @@
                 window.open(whatsappLink, '_blank');
                 if (customImageData) {
                     setTimeout(() => {
-                        showNotification('📱 WhatsApp aperto! 📎 Invia l\'immagine scaricata in un messaggio separato! ✅', 'success');
+                        showNotification('📱 WhatsApp con ordine completo aperto! 📎 Invia l\'immagine separatamente! ✅', 'success');
                     }, 500);
                 } else {
-                    showNotification('📱 WhatsApp aperto! ✅', 'success');
+                    showNotification('📱 WhatsApp con ordine completo aperto! ✅', 'success');
                 }
             } catch (error) {
                 showNotification('❌ Errore apertura WhatsApp! 🔄', 'error');
@@ -2763,7 +2836,10 @@
                 return;
             }
             
+            const customerName = document.getElementById('customer-name')?.value || 'Cliente';
             const heroName = document.getElementById('hero-name')?.textContent || 'Captain Pixel';
+            const orderId = document.getElementById('order-code')?.textContent || 'RETRO-001';
+            
             let total = 0;
             Object.values(configuration).forEach(item => {
                 if (item && typeof item.price === 'number') {
@@ -2771,21 +2847,38 @@
                 }
             });
             
-            let text = `🎮 RETROAVIA\n\n🦸‍♂️ Supereroe: ${heroName}\n💰 Totale: ${total}€\n`;
+            let text = `🎮 RETROAVIA - ORDINE\n\n`;
+            text += `👤 ${customerName} (${heroName})\n`;
+            text += `🆔 ${orderId}\n\n`;
             
-            if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                text += `\n🖼️ Design personalizzato pronto! 🎨\n`;
-                // Scarica automaticamente l'immagine
+            text += `⚡ SETUP:\n`;
+            text += `🎮 ${configuration['gameboy-model']?.name}\n`;
+            text += `🛠️ ${configuration['modification-level']?.name}\n`;
+            
+            if (configuration['modification-level']?.name === 'Con scocca personalizzata') {
+                text += `🎨 ${configuration['shell-color']?.name}\n`;
+            }
+            
+            text += `📺 Display ${configuration['display']?.name}\n`;
+            text += `🔋 Batteria ${configuration['battery']?.name}\n`;
+            
+            if (configuration['led-kit']?.name === 'Sì') {
+                text += `💡 Kit LED incluso\n`;
+            }
+            
+            if (customImageData) {
+                text += `🖼️ Design personalizzato\n`;
                 downloadCustomImage();
             }
             
-            text += `\n#RetroAvia #GameBoy #Retrogaming`;
+            text += `\n💰 Totale: ${total}€\n\n`;
+            text += `#RetroAvia #GameBoy #Custom #Retrogaming #ModdedGameBoy`;
             
             navigator.clipboard.writeText(text).then(() => {
                 if (customImageData) {
-                    showNotification('📷 Testo copiato e immagine scaricata! Aprendo Instagram... ✅', 'success');
+                    showNotification('📷 Testo con ordine copiato e immagine scaricata! Aprendo Instagram... ✅', 'success');
                 } else {
-                    showNotification('📷 Testo copiato! Aprendo Instagram... ✅', 'success');
+                    showNotification('📷 Testo con ordine copiato! Aprendo Instagram... ✅', 'success');
                 }
                 setTimeout(() => {
                     window.open('https://www.instagram.com/retroavia_/', '_blank');
