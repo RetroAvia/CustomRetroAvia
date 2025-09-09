@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetroAvia - Il Supereroe dei Game Boy</title>
+    <title>RetroAvia - Configuratore Game Boy Professionale</title>
     <style>
         * {
             margin: 0;
@@ -12,27 +12,41 @@
         }
         
         :root {
-            --primary-red: #e73c3e;
-            --primary-blue: #1e3a8a;
-            --primary-yellow: #fbbf24;
-            --dark-bg: #0f172a;
-            --light-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-dark: #0f172a;
-            --accent-gold: #f59e0b;
-            --success-green: #10b981;
-            --danger-red: #ef4444;
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-glass: rgba(30, 41, 59, 0.8);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --border-color: rgba(59, 130, 246, 0.2);
+            --border-accent: rgba(245, 158, 11, 0.3);
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
         }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             font-weight: 400;
             line-height: 1.6;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-blue) 50%, var(--primary-red) 100%);
-            color: var(--text-light);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
         
         body::before {
@@ -43,188 +57,134 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(231, 60, 62, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(30, 58, 138, 0.1) 0%, transparent 50%);
-            animation: particleFloat 20s ease-in-out infinite;
+                radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite;
         }
-        
-        @keyframes particleFloat {
+
+        @keyframes backgroundFloat {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
         }
         
         .hero-section {
             text-align: center;
-            padding: 2rem 1rem;
-            background: linear-gradient(45deg, var(--primary-red), var(--primary-blue), var(--primary-yellow), var(--primary-red));
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease-in-out infinite;
+            padding: 4rem 2rem 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
             position: relative;
-            overflow: hidden;
-            border-bottom: 5px solid var(--accent-gold);
+            border-bottom: 1px solid var(--border-color);
+            animation: heroFadeIn 1s ease-out;
         }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            25% { background-position: 100% 50%; }
-            50% { background-position: 50% 100%; }
-            75% { background-position: 0% 50%; }
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 30%),
-                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 40%);
-            animation: shimmer 4s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .hero-title {
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-family: var(--font-mono);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
-            text-shadow: 
-                3px 3px 0px rgba(0,0,0,0.7),
-                6px 6px 0px rgba(231, 60, 62, 0.5),
-                9px 9px 0px rgba(30, 58, 138, 0.3);
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #fff, var(--accent-gold), #fff);
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
             animation: titleGlow 3s ease-in-out infinite;
-            letter-spacing: 2px;
         }
-        
+
         @keyframes titleGlow {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5)); }
-            50% { filter: drop-shadow(0 0 20px rgba(251, 191, 36, 1)); }
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.3)); }
+            50% { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.6)); }
         }
         
         .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            margin-bottom: 2rem;
-            font-weight: 600;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            animation: subtitlePulse 4s ease-in-out infinite;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            animation: subtitleSlide 1s ease-out 0.3s both;
+        }
+
+        @keyframes subtitleSlide {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
-        @keyframes subtitlePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .hero-description {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: descriptionSlide 1s ease-out 0.6s both;
         }
-        
-        .hero-icons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-        
-        .hero-icon {
-            font-size: 3rem;
-            animation: iconBounce 2s ease-in-out infinite;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .hero-icon:hover {
-            transform: scale(1.2) rotate(15deg);
-        }
-        
-        .hero-icon:nth-child(1) { animation-delay: 0s; }
-        .hero-icon:nth-child(2) { animation-delay: 0.5s; }
-        .hero-icon:nth-child(3) { animation-delay: 1s; }
-        .hero-icon:nth-child(4) { animation-delay: 1.5s; }
-        
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        @keyframes descriptionSlide {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 2rem;
             display: grid;
-            grid-template-columns: 1fr 380px;
+            grid-template-columns: 1fr 400px;
             gap: 2rem;
         }
         
         @media (max-width: 1024px) {
             .container {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                padding: 1rem;
             }
         }
         
         .quick-configs-container {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .quick-configs-title {
-            color: var(--primary-yellow);
-            font-size: 1.4rem;
-            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 1.25rem;
+            font-weight: 600;
             text-align: center;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .quick-configs-title::before {
-            content: '🚀';
-            font-size: 1.5rem;
         }
         
         .quick-configs {
-            display: flex;
-            gap: 0.8rem;
-            padding: 1.2rem;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 15px;
-            border: 2px solid rgba(251, 191, 36, 0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-glass);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
         }
         
         .quick-config {
-            flex: 1;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(16, 185, 129, 0.15));
-            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 1rem;
+            padding: 1.25rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
             position: relative;
             overflow: hidden;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            transform: translateY(0);
         }
-        
+
         .quick-config::before {
             content: '';
             position: absolute;
@@ -233,82 +193,69 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
+            transition: left 0.6s ease;
         }
-        
+
         .quick-config:hover::before {
             left: 100%;
         }
         
         .quick-config:hover {
-            border-color: var(--primary-yellow);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            border-color: var(--accent-color);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
         }
         
         .quick-config h4 {
-            color: var(--primary-yellow);
+            color: var(--accent-color);
             font-size: 1rem;
-            margin-bottom: 0.3rem;
-            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         
         .quick-config p {
-            color: var(--text-light);
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.8;
-            line-height: 1.2;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
         }
         
         .quick-config .price {
-            color: var(--accent-gold);
-            font-size: 1.1rem;
+            color: var(--success-color);
+            font-size: 1.125rem;
             font-weight: 700;
-            font-family: 'Courier New', monospace;
+            font-family: var(--font-mono);
         }
         
         .configurator {
-            background: rgba(30, 41, 59, 0.95);
-            border-radius: 25px;
-            padding: 2.5rem;
+            background: var(--bg-glass);
+            border-radius: 20px;
+            padding: 2rem;
             backdrop-filter: blur(15px);
-            border: 3px solid var(--primary-yellow);
-            box-shadow: 
-                0 0 30px rgba(251, 191, 36, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
-            position: relative;
+            border: 1px solid var(--border-color);
+            animation: slideInRight 0.8s ease-out;
         }
-        
-        .configurator::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--primary-red), var(--primary-blue), var(--primary-yellow), var(--primary-red));
-            border-radius: 25px;
-            z-index: -1;
-            animation: borderGlow 3s ease-in-out infinite;
-        }
-        
-        @keyframes borderGlow {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .section {
             margin-bottom: 2rem;
             padding: 2rem;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 20px;
-            border-left: 6px solid var(--primary-red);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
         }
-        
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .section::before {
             content: '';
             position: absolute;
@@ -316,63 +263,51 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
-            transition: left 0.6s ease;
+            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+            transition: left 0.8s ease;
+            position: relative;
         }
         
+        .section:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
         .section:hover::before {
             left: 100%;
         }
         
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(231, 60, 62, 0.3);
-            border-left-color: var(--primary-yellow);
-        }
-        
         .section-title {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-yellow);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-color);
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .section-title::before {
-            content: '⚡';
-            font-size: 1.8rem;
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
+            gap: 0.5rem;
         }
         
         .option-group {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
         }
         
         .option {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1.2rem;
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 15px;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.4s ease;
-            border: 3px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
             position: relative;
             overflow: hidden;
         }
-        
+
         .option::before {
             content: '';
             position: absolute;
@@ -380,187 +315,583 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
             transition: left 0.5s ease;
         }
-        
+
         .option:hover::before {
             left: 100%;
         }
         
         .option:hover {
-            background: rgba(59, 130, 246, 0.3);
-            border-color: var(--primary-blue);
-            transform: translateX(5px);
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary-color);
+            transform: translateX(3px);
         }
         
         .option.selected {
-            background: linear-gradient(45deg, var(--primary-red), var(--primary-blue));
-            border-color: var(--primary-yellow);
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 5px 20px rgba(231, 60, 62, 0.4);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(30, 64, 175, 0.2));
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
         
         .option input[type="radio"] {
-            width: 24px;
-            height: 24px;
-            accent-color: var(--primary-yellow);
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
         }
         
         .option-label {
             flex: 1;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
         }
         
         .option-price {
-            font-weight: 700;
-            color: var(--accent-gold);
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            font-size: 1.1rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-weight: 600;
+            color: var(--success-color);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
         }
 
-        /* NUOVI STILI PER L'UPLOAD IMMAGINI */
+        /* Shell Color Selection */
+        .shell-color-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .shell-color-container.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .shell-color-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .shell-colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .shell-color-option {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            background: var(--bg-secondary);
+            position: relative;
+            transform: scale(1);
+        }
+
+        .shell-color-option:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .shell-color-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .shell-color-swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .shell-color-option:hover .shell-color-swatch {
+            transform: scale(1.1);
+        }
+
+        .shell-color-name {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Shell Color Swatches */
+        .shell-color-swatch.grey-solid { background: #6b7280; }
+        .shell-color-swatch.black { background: #1f2937; }
+        .shell-color-swatch.clear-white { 
+            background: linear-gradient(45deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            border-color: #d1d5db;
+        }
+        .shell-color-swatch.solid-green { background: #10b981; }
+        .shell-color-swatch.solid-yellow { background: #f59e0b; }
+        .shell-color-swatch.solid-purple { background: #8b5cf6; }
+        .shell-color-swatch.solid-red { background: #ef4444; }
+        .shell-color-swatch.solid-orange { background: #f97316; }
+        .shell-color-swatch.solid-blue { background: #3b82f6; }
+        .shell-color-swatch.clear-blue { 
+            background: linear-gradient(45deg, rgba(59,130,246,0.8), rgba(59,130,246,0.6));
+        }
+        .shell-color-swatch.amber { background: #f59e0b; }
+        .shell-color-swatch.clear-purple { 
+            background: linear-gradient(45deg, rgba(139,92,246,0.8), rgba(139,92,246,0.6));
+        }
+        .shell-color-swatch.clear-red { 
+            background: linear-gradient(45deg, rgba(239,68,68,0.8), rgba(239,68,68,0.6));
+        }
+        .shell-color-swatch.clear-yellow { 
+            background: linear-gradient(45deg, rgba(245,158,11,0.8), rgba(245,158,11,0.6));
+        }
+        .shell-color-swatch.clear-black { 
+            background: linear-gradient(45deg, rgba(31,41,55,0.9), rgba(31,41,55,0.7));
+        }
+
+        /* Image Upload Styles */
         .image-upload-container {
             margin-top: 1.5rem;
             padding: 1.5rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 2px dashed var(--primary-blue);
-            border-radius: 15px;
+            background: rgba(37, 99, 235, 0.05);
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: none;
+            opacity: 0;
+            transform: translateY(10px);
         }
 
         .image-upload-container.active {
             display: block;
-            animation: fadeInUp 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .image-upload-container.dragover {
-            border-color: var(--primary-yellow);
-            background: rgba(251, 191, 36, 0.1);
+            border-color: var(--accent-color);
+            background: rgba(245, 158, 11, 0.05);
             transform: scale(1.02);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        .upload-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .upload-info {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .file-input { display: none; }
+
+        .upload-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.875rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .upload-button:hover::before {
+            left: 100%;
+        }
+
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-preview.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .preview-image:hover {
+            transform: scale(1.05);
+        }
+
+        .image-info {
+            background: var(--bg-secondary);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .remove-image-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .remove-image-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .upload-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+            border: 1px solid var(--danger-color);
+            font-size: 0.875rem;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .upload-error.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .summary-panel {
+            background: var(--bg-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(15px);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .gameboy-preview {
+            width: 180px;
+            height: 270px;
+            background: linear-gradient(145deg, #e5e7eb, #d1d5db);
+            border-radius: 20px 20px 12px 12px;
+            margin: 2rem auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: gameboyFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes gameboyFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(1deg); }
+        }
+
+        .gameboy-preview:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gameboy-screen {
+            width: 110px;
+            height: 90px;
+            background: #374151;
+            border-radius: 8px;
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #1f2937;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .gameboy-dpad {
+            width: 40px;
+            height: 40px;
+            background: #6b7280;
+            position: absolute;
+            bottom: 70px;
+            left: 25px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .gameboy-preview:hover .gameboy-dpad {
+            background: #9ca3af;
+        }
+        
+        .gameboy-buttons {
+            position: absolute;
+            bottom: 70px;
+            right: 25px;
+        }
+        
+        .gameboy-button {
+            width: 16px;
+            height: 16px;
+            background: #ef4444;
+            border-radius: 50%;
+            margin: 4px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .gameboy-preview:hover .gameboy-button {
+            background: #f87171;
+            transform: scale(1.1);
+        }
+        
+        .gameboy-preview.ips .gameboy-screen {
+            background: linear-gradient(45deg, #3b82f6, #6366f1);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            animation: screenGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes screenGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+        }
+        
+        .gameboy-preview.led {
+            box-shadow: var(--shadow-lg), 0 0 25px rgba(245, 158, 11, 0.4);
+            animation: ledPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes ledPulse {
+            0%, 100% { box-shadow: var(--shadow-lg), 0 0 25px rgba(245, 158, 11, 0.4); }
+            50% { box-shadow: var(--shadow-lg), 0 0 40px rgba(245, 158, 11, 0.7); }
+        }
+        
+        .gameboy-preview.custom {
+            background: linear-gradient(145deg, #6366f1, #8b5cf6);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-10px);
+            animation: itemSlideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes itemSlideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
+        }
+
+        .summary-item:nth-child(1) { animation-delay: 0.1s; }
+        .summary-item:nth-child(2) { animation-delay: 0.2s; }
+        .summary-item:nth-child(3) { animation-delay: 0.3s; }
+        .summary-item:nth-child(4) { animation-delay: 0.4s; }
+        .summary-item:nth-child(5) { animation-delay: 0.5s; }
+        .summary-item:nth-child(6) { animation-delay: 0.6s; }
+        .summary-item:nth-child(7) { animation-delay: 0.7s; }
+        .summary-item:nth-child(8) { animation-delay: 0.8s; }
+        .summary-item:nth-child(9) { animation-delay: 0.9s; }
+        .summary-item:nth-child(10) { animation-delay: 1.0s; }
+
+        .summary-item:hover {
+            background: rgba(37, 99, 235, 0.05);
+            padding-left: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--accent-color);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+        
+        .total-price {
+            font-family: var(--font-mono);
+            color: var(--success-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            animation: priceGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes priceGlow {
+            0%, 100% { 
+                color: var(--success-color);
+                text-shadow: 0 0 5px rgba(16, 185, 129, 0.3);
+            }
+            50% { 
+                color: #34d399;
+                text-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+            }
+        }
+        
+        .customer-form {
+            background: var(--bg-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--success-color);
+            backdrop-filter: blur(15px);
+            animation: formSlideIn 1s ease-out;
+        }
+
+        @keyframes formSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--success-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: titleBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: formGroupSlide 0.6s ease-out forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes formGroupSlide {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-blue);
-            animation: uploadBounce 2s ease-in-out infinite;
-        }
-
-        @keyframes uploadBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .upload-text {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .upload-info {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            opacity: 0.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .upload-button {
-            background: linear-gradient(45deg, var(--primary-blue), #3b82f6);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            border: 2px solid var(--primary-yellow);
-        }
-
-        .upload-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
-        }
-
-        .image-preview {
-            margin-top: 1.5rem;
-            display: none;
-        }
-
-        .image-preview.active {
+        
+        .form-label {
             display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .preview-image {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 15px;
-            border: 3px solid var(--primary-yellow);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            margin-bottom: 1rem;
-        }
-
-        .image-info {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 1rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .remove-image-btn {
-            background: linear-gradient(45deg, var(--danger-red), #dc2626);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .remove-image-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-        }
-
-        .upload-error {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger-red);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-            border: 2px solid var(--danger-red);
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
             font-weight: 500;
-            display: none;
+            font-size: 0.875rem;
         }
-
-        .upload-error.active {
-            display: block;
-            animation: shake 0.5s ease;
+        
+        .field-required::after {
+            content: ' *';
+            color: var(--danger-color);
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: scale(1.01);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .validation-error {
+            border-color: var(--danger-color) !important;
+            animation: shake 0.5s ease-in-out;
         }
 
         @keyframes shake {
@@ -569,251 +900,77 @@
             75% { transform: translateX(5px); }
         }
         
-        .summary-panel {
-            background: linear-gradient(135deg, var(--light-bg), var(--dark-bg));
-            border-radius: 25px;
-            padding: 2.5rem;
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-            border: 3px solid var(--primary-blue);
-            box-shadow: 
-                0 0 40px rgba(30, 58, 138, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-        
-        .summary-title {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary-yellow);
-            text-align: center;
-            margin-bottom: 2rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: titleShine 3s ease-in-out infinite;
-        }
-        
-        @keyframes titleShine {
-            0%, 100% { color: var(--primary-yellow); }
-            50% { color: var(--accent-gold); }
-        }
-        
-        .gameboy-preview {
-            width: 200px;
-            height: 300px;
-            background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
-            border-radius: 25px 25px 15px 15px;
-            margin: 2rem auto;
-            position: relative;
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.3),
-                inset 0 0 20px rgba(255,255,255,0.2);
-            transition: all 0.5s ease;
-        }
-        
-        .gameboy-screen {
-            width: 120px;
-            height: 100px;
-            background: #2d3748;
-            border-radius: 10px;
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 4px solid #1a202c;
-            transition: all 0.5s ease;
-        }
-        
-        .gameboy-dpad {
-            width: 50px;
-            height: 50px;
-            background: #4a5568;
-            position: absolute;
-            bottom: 80px;
-            left: 30px;
-            border-radius: 50%;
-            transition: all 0.5s ease;
-        }
-        
-        .gameboy-buttons {
-            position: absolute;
-            bottom: 80px;
-            right: 30px;
-        }
-        
-        .gameboy-button {
-            width: 20px;
-            height: 20px;
-            background: #e53e3e;
-            border-radius: 50%;
-            margin: 5px;
-            display: inline-block;
-            transition: all 0.5s ease;
-        }
-        
-        .gameboy-preview.ips .gameboy-screen {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-        }
-        
-        .gameboy-preview.led {
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.3),
-                0 0 30px rgba(251, 191, 36, 0.6);
-        }
-        
-        .gameboy-preview.custom {
-            background: linear-gradient(145deg, #667eea, #764ba2);
-        }
-        
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 2px solid rgba(251, 191, 36, 0.2);
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        .summary-item:last-child {
-            border-bottom: none;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 3px solid var(--primary-yellow);
-            font-weight: 700;
-            font-size: 1.4rem;
-        }
-        
-        .total-price {
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            color: var(--accent-gold);
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: priceGlow 2s ease-in-out infinite;
-        }
-        
-        @keyframes priceGlow {
-            0%, 100% { 
-                color: var(--accent-gold);
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            }
-            50% { 
-                color: #fcd34d;
-                text-shadow: 0 0 20px rgba(252, 211, 77, 0.8);
-            }
-        }
-        
-        .customer-form {
-            background: rgba(30, 41, 59, 0.95);
-            border-radius: 25px;
-            padding: 2.5rem;
-            margin-top: 2rem;
-            border: 3px solid var(--success-green);
-            box-shadow: 
-                0 0 40px rgba(16, 185, 129, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-        
-        .form-title {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--success-green);
-            margin-bottom: 2rem;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .form-group {
-            margin-bottom: 1.8rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.8rem;
-            color: var(--primary-yellow);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .field-required::after {
-            content: ' *';
-            color: var(--danger-red);
-        }
-        
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 3px solid var(--primary-blue);
-            border-radius: 15px;
-            background: rgba(15, 23, 42, 0.9);
-            color: var(--text-light);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1rem;
-            font-weight: 400;
+        .validation-message {
+            color: var(--danger-color);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+            opacity: 0;
+            transform: translateY(-5px);
             transition: all 0.3s ease;
         }
-        
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-yellow);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
-            transform: scale(1.02);
-        }
-        
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        .validation-error {
-            border-color: var(--danger-red) !important;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3) !important;
-        }
-        
-        .validation-message {
-            color: var(--danger-red);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            display: none;
+
+        .validation-message.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .order-id {
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            color: var(--accent-gold);
+            font-family: var(--font-mono);
+            color: var(--accent-color);
             text-align: center;
             margin: 1.5rem 0;
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            animation: codeGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes codeGlow {
+            0%, 100% { 
+                color: var(--accent-color);
+                text-shadow: 0 0 5px rgba(245, 158, 11, 0.3);
+            }
+            50% { 
+                color: #fbbf24;
+                text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+            }
         }
         
-        .action-buttons, .share-buttons {
+        .action-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             margin-top: 2rem;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: buttonsSlideIn 0.8s ease-out 0.5s forwards;
+        }
+
+        @keyframes buttonsSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .btn {
-            padding: 1.2rem 2.5rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 20px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.875rem;
             cursor: pointer;
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: none;
+            letter-spacing: normal;
+            min-width: 120px;
+            flex: 1;
             position: relative;
             overflow: hidden;
-            min-width: 160px;
         }
-        
+
         .btn::before {
             content: '';
             position: absolute;
@@ -821,139 +978,100 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
         }
-        
+
         .btn:hover::before {
             left: 100%;
         }
         
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-red), var(--primary-blue));
-            color: white;
-            border: 2px solid var(--primary-yellow);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(231, 60, 62, 0.5);
-        }
-        
         .btn-copy {
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
-            border: 2px solid var(--primary-yellow);
-        }
-        
-        .btn-copy:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
         }
         
         .btn-email {
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
-            border: 2px solid var(--primary-yellow);
-        }
-        
-        .btn-email:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
         }
         
         .btn-whatsapp {
-            background: linear-gradient(45deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
-            border: 2px solid var(--primary-yellow);
-        }
-        
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
         }
         
         .btn-instagram {
-            background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
-            border: 2px solid var(--primary-yellow);
         }
         
-        .btn-instagram:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
         }
         
         .ai-assistant {
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-bg));
-            border-radius: 25px;
-            padding: 2.5rem;
+            background: var(--bg-glass);
+            border-radius: 20px;
+            padding: 2rem;
             margin-top: 2rem;
-            border: 3px solid var(--accent-gold);
-            box-shadow: 
-                0 0 40px rgba(245, 158, 11, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-accent);
+            backdrop-filter: blur(15px);
+            animation: assistantSlideIn 1s ease-out;
+        }
+
+        @keyframes assistantSlideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .ai-title {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-gold);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-color);
             margin-bottom: 1.5rem;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .ai-title::before {
-            content: '🤖';
-            font-size: 1.8rem;
             animation: robotBlink 3s ease-in-out infinite;
         }
-        
+
         @keyframes robotBlink {
             0%, 90%, 100% { opacity: 1; }
-            95% { opacity: 0.3; }
+            95% { opacity: 0.7; }
         }
         
         .ai-suggestions {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(251, 191, 36, 0.3);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            animation: suggestionsGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes suggestionsGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(37, 99, 235, 0.1); }
+            50% { box-shadow: 0 0 15px rgba(37, 99, 235, 0.2); }
         }
         
         .suggestion {
-            background: rgba(59, 130, 246, 0.2);
-            border-left: 5px solid var(--primary-blue);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0 15px 15px 0;
-            font-size: 1rem;
-            line-height: 1.6;
-            position: relative;
-            overflow: hidden;
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 3px solid var(--primary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            animation: suggestionSlide 0.6s ease-out;
         }
-        
-        .suggestion::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary-blue), var(--primary-yellow));
-            animation: suggestionPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes suggestionPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+
+        @keyframes suggestionSlide {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .suggestion:last-child {
@@ -962,151 +1080,177 @@
         
         .hero-name-generator {
             text-align: center;
-            background: rgba(231, 60, 62, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 2px solid rgba(231, 60, 62, 0.3);
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-accent);
+            animation: generatorFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes generatorFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
         }
         
         .hero-name {
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            font-size: 1.8rem;
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
             font-weight: 600;
-            color: var(--primary-yellow);
-            margin: 1.5rem 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: nameGlow 2s ease-in-out infinite;
+            color: var(--accent-color);
+            margin: 1rem 0;
+            animation: nameShine 2s ease-in-out infinite;
         }
-        
-        @keyframes nameGlow {
+
+        @keyframes nameShine {
             0%, 100% { 
-                color: var(--primary-yellow);
-                text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+                color: var(--accent-color);
+                text-shadow: 0 0 5px rgba(245, 158, 11, 0.3);
             }
             50% { 
-                color: #fcd34d;
-                text-shadow: 0 0 20px rgba(252, 211, 77, 0.8);
+                color: #fbbf24;
+                text-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
             }
         }
         
         .faq-section {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-top: 2rem;
-            border: 2px solid rgba(16, 185, 129, 0.3);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-color);
         }
         
         .faq-item {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 15px;
-            margin-bottom: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .faq-item:hover {
-            background: rgba(30, 41, 59, 0.8);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
         .faq-question {
-            padding: 1.5rem;
+            padding: 1rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
+            font-size: 0.875rem;
         }
         
         .faq-question:hover {
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .faq-question .faq-icon {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
         }
         
         .faq-answer {
-            padding: 0 1.5rem;
+            padding: 0 1rem;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.4s ease;
-            line-height: 1.6;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.5;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            opacity: 0;
         }
         
         .faq-answer.active {
-            max-height: 300px;
-            padding: 1.5rem;
+            max-height: 200px;
+            padding: 1rem;
+            opacity: 1;
         }
         
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(45deg, var(--success-green), var(--primary-blue));
+            background: linear-gradient(135deg, var(--success-color), var(--primary-color));
             color: white;
-            padding: 1.5rem 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
             z-index: 1000;
             transform: translateX(400px);
-            transition: transform 0.4s ease;
-            font-weight: 600;
-            border: 2px solid var(--primary-yellow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .notification.show {
             transform: translateX(0);
+            animation: notificationBounce 0.6s ease-out;
+        }
+
+        @keyframes notificationBounce {
+            0% { transform: translateX(400px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
         }
         
         .notification.error {
-            background: linear-gradient(45deg, var(--danger-red), #dc2626);
-            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.5);
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
         }
         
         .delivery-estimate {
             background: rgba(16, 185, 129, 0.1);
-            border: 2px solid var(--success-green);
-            border-radius: 15px;
-            padding: 1.5rem;
+            border: 1px solid var(--success-color);
+            border-radius: 8px;
+            padding: 1rem;
             margin-top: 1rem;
             text-align: center;
+            animation: deliveryPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes deliveryPulse {
+            0%, 100% { border-color: var(--success-color); }
+            50% { border-color: #34d399; }
         }
         
         .delivery-estimate h4 {
-            color: var(--success-green);
+            color: var(--success-color);
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
         }
         
         .delivery-estimate p {
-            color: var(--text-light);
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
         }
         
         .savings-indicator {
-            background: linear-gradient(45deg, var(--success-green), #059669);
+            background: var(--success-color);
             color: white;
             padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-top: 1rem;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 0.75rem;
             display: inline-block;
-            animation: pulse 2s infinite;
+            animation: savingsBounce 2s ease-in-out infinite;
         }
-        
-        @keyframes pulse {
+
+        @keyframes savingsBounce {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
+
+        /* Ripple Effect */
         @keyframes ripple {
             to {
                 transform: scale(4);
@@ -1115,68 +1259,20 @@
         }
         
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
             .hero-section {
-                padding: 1.5rem 1rem;
-                margin: 0 -1rem;
-            }
-            
-            .hero-title {
-                font-size: clamp(2rem, 8vw, 3.5rem);
-                margin-bottom: 0.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: clamp(1rem, 4vw, 1.5rem);
-                margin-bottom: 1rem;
+                padding: 2rem 1rem 1rem;
             }
             
             .configurator, .summary-panel, .customer-form, .ai-assistant {
-                padding: 1.5rem;
+                padding: 1.25rem;
             }
             
-            .action-buttons, .share-buttons {
+            .action-buttons {
                 flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-            
-            .hero-icons {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            
-            .hero-icon {
-                font-size: 2rem;
             }
             
             .quick-configs {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .quick-config {
-                min-height: 80px;
-                padding: 0.8rem;
-            }
-            
-            .quick-config h4 {
-                font-size: 0.9rem;
-                margin-bottom: 0.2rem;
-            }
-            
-            .quick-config p {
-                font-size: 0.7rem;
-                margin-bottom: 0.3rem;
-            }
-            
-            .quick-config .price {
-                font-size: 1rem;
+                grid-template-columns: 1fr;
             }
             
             .gameboy-preview {
@@ -1190,44 +1286,51 @@
                 top: 30px;
             }
 
-            .image-upload-container {
-                padding: 1rem;
+            .shell-colors-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             }
 
-            .upload-icon {
-                font-size: 2rem;
+            .section {
+                padding: 1.5rem;
             }
 
-            .upload-text {
-                font-size: 1rem;
+            .option {
+                padding: 0.75rem;
             }
 
-            .preview-image {
-                max-height: 150px;
+            .summary-panel {
+                position: relative;
+                top: auto;
             }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-title">RETROAVIA</h1>
-            <p class="hero-subtitle">🦸‍♂️ Il Supereroe dei Game Boy 🦸‍♂️</p>
-            <p style="font-size: 1.2rem; margin-bottom: 1rem;">Trasforma il tuo Game Boy in una leggenda!</p>
-            <div class="hero-icons">
-                <span class="hero-icon">🕷️</span>
-                <span class="hero-icon">⚡</span>
-                <span class="hero-icon">🛡️</span>
-                <span class="hero-icon">🎮</span>
-            </div>
+            <h1 class="hero-title">🎮 RETROAVIA 🎮</h1>
+            <p class="hero-subtitle">✨ Configuratore Game Boy Professionale ✨</p>
+            <p class="hero-description">🚀 Crea il tuo Game Boy personalizzato perfetto con modifiche di livello professionale e opzioni di personalizzazione uniche! 🛠️</p>
         </div>
     </div>
 
     <div class="container">
         <div class="configurator">
-            <!-- Setup Consigliati -->
-            <div class="quick-configs-container">
-                <h3 class="quick-configs-title">Setup Consigliati</h3>
+            <!-- Configurazioni Rapide -->
+            <div class="quick-configs-container scroll-animate">
+                <h3 class="quick-configs-title">🚀 Configurazioni Consigliate</h3>
                 <div class="quick-configs">
                     <div class="quick-config" onclick="applyQuickConfig('budget')">
                         <h4>💰 Budget</h4>
@@ -1246,58 +1349,125 @@
                     </div>
                 </div>
             </div>
-            <!-- 1. Scelta Game Boy -->
-            <div class="section fade-in">
-                <h3 class="section-title">Game Boy (Modello Base)</h3>
+
+            <!-- 1. Modello Game Boy -->
+            <div class="section scroll-animate">
+                <h3 class="section-title">🎮 Modello Game Boy</h3>
                 <div class="option-group" id="gameboy-model">
                     <div class="option" onclick="selectOption('gameboy-model', this, 'Game Boy Color', 0)">
                         <input type="radio" name="gameboy-model" value="Game Boy Color">
-                        <span class="option-label">Game Boy Color 🎮</span>
+                        <span class="option-label">🌈 Game Boy Color</span>
                         <span class="option-price">Base</span>
                     </div>
                     <div class="option" onclick="selectOption('gameboy-model', this, 'Game Boy Advance', 0)">
                         <input type="radio" name="gameboy-model" value="Game Boy Advance">
-                        <span class="option-label">Game Boy Advance 🎮</span>
+                        <span class="option-label">⚡ Game Boy Advance</span>
                         <span class="option-price">Base</span>
                     </div>
                     <div class="option selected" onclick="selectOption('gameboy-model', this, 'Game Boy Advance SP', 0)">
                         <input type="radio" name="gameboy-model" value="Game Boy Advance SP" checked>
-                        <span class="option-label">Game Boy Advance SP ⚡</span>
+                        <span class="option-label">✨ Game Boy Advance SP</span>
                         <span class="option-price">Base</span>
                     </div>
                 </div>
             </div>
 
             <!-- 2. Livello di Modifica -->
-            <div class="section fade-in">
-                <h3 class="section-title">Livello di Modifica</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">🛠️ Livello di Modifica</h3>
                 <div class="option-group" id="modification-level">
                     <div class="option" onclick="selectOption('modification-level', this, 'Solo Game Boy', 80)">
                         <input type="radio" name="modification-level" value="Solo Game Boy">
-                        <span class="option-label">Solo Game Boy (senza modifiche) 🎮</span>
+                        <span class="option-label">📱 Solo Game Boy (senza modifiche)</span>
                         <span class="option-price">80€</span>
                     </div>
                     <div class="option selected" onclick="selectOption('modification-level', this, 'Con scocca semplice', 100)">
                         <input type="radio" name="modification-level" value="Con scocca semplice" checked>
-                        <span class="option-label">Con scocca semplice 🛡️</span>
+                        <span class="option-label">🛡️ Con scocca semplice</span>
                         <span class="option-price">100€</span>
                     </div>
                     <div class="option" onclick="selectOption('modification-level', this, 'Con scocca personalizzata', 120)">
                         <input type="radio" name="modification-level" value="Con scocca personalizzata">
-                        <span class="option-label">Con scocca personalizzata 🎨</span>
+                        <span class="option-label">🎨 Con scocca personalizzata</span>
                         <span class="option-price">120€</span>
+                    </div>
+                </div>
+
+                <!-- Selezione Colore Scocca -->
+                <div class="shell-color-container" id="shell-color-container">
+                    <div class="shell-color-title">🎨 Scegli il Colore della Scocca</div>
+                    <div class="shell-colors-grid" id="shell-colors-grid">
+                        <div class="shell-color-option selected" onclick="selectShellColor(this, 'Grey Solid')">
+                            <div class="shell-color-swatch grey-solid"></div>
+                            <div class="shell-color-name">Grigio Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Black')">
+                            <div class="shell-color-swatch black"></div>
+                            <div class="shell-color-name">Nero</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Clear White')">
+                            <div class="shell-color-swatch clear-white"></div>
+                            <div class="shell-color-name">Bianco Trasparente</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Solid Green')">
+                            <div class="shell-color-swatch solid-green"></div>
+                            <div class="shell-color-name">Verde Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Solid Yellow')">
+                            <div class="shell-color-swatch solid-yellow"></div>
+                            <div class="shell-color-name">Giallo Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Solid Purple')">
+                            <div class="shell-color-swatch solid-purple"></div>
+                            <div class="shell-color-name">Viola Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Solid Red')">
+                            <div class="shell-color-swatch solid-red"></div>
+                            <div class="shell-color-name">Rosso Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Solid Orange')">
+                            <div class="shell-color-swatch solid-orange"></div>
+                            <div class="shell-color-name">Arancione Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Solid Blue')">
+                            <div class="shell-color-swatch solid-blue"></div>
+                            <div class="shell-color-name">Blu Solido</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Clear Blue')">
+                            <div class="shell-color-swatch clear-blue"></div>
+                            <div class="shell-color-name">Blu Trasparente</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Amber')">
+                            <div class="shell-color-swatch amber"></div>
+                            <div class="shell-color-name">Ambra</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Clear Purple')">
+                            <div class="shell-color-swatch clear-purple"></div>
+                            <div class="shell-color-name">Viola Trasparente</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Clear Red')">
+                            <div class="shell-color-swatch clear-red"></div>
+                            <div class="shell-color-name">Rosso Trasparente</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Clear Yellow')">
+                            <div class="shell-color-swatch clear-yellow"></div>
+                            <div class="shell-color-name">Giallo Trasparente</div>
+                        </div>
+                        <div class="shell-color-option" onclick="selectShellColor(this, 'Clear Black')">
+                            <div class="shell-color-swatch clear-black"></div>
+                            <div class="shell-color-name">Nero Trasparente</div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Sezione Upload Immagine -->
                 <div class="image-upload-container" id="image-upload-container">
-                    <div class="upload-icon">🎨</div>
-                    <div class="upload-text">Carica la tua immagine personalizzata</div>
-                    <div class="upload-info">Formati supportati: JPG, PNG | Dimensione massima: 10MB</div>
+                    <div class="upload-text">📁 Carica la tua immagine personalizzata</div>
+                    <div class="upload-info">✅ Formati supportati: JPG, PNG | 📏 Dimensione massima: 10MB</div>
                     
                     <input type="file" id="custom-image-input" class="file-input" accept=".jpg,.jpeg,.png" />
                     <button class="upload-button" onclick="document.getElementById('custom-image-input').click()">
-                        📁 Scegli Immagine
+                        🖼️ Scegli Immagine
                     </button>
                     
                     <div class="upload-error" id="upload-error">
@@ -1307,9 +1477,9 @@
                     <div class="image-preview" id="image-preview">
                         <img id="preview-image" class="preview-image" alt="Anteprima immagine personalizzata" />
                         <div class="image-info" id="image-info">
-                            <div><strong>Nome:</strong> <span id="image-name"></span></div>
-                            <div><strong>Dimensione:</strong> <span id="image-size"></span></div>
-                            <div><strong>Formato:</strong> <span id="image-type"></span></div>
+                            <div><strong>📝 Nome:</strong> <span id="image-name"></span></div>
+                            <div><strong>📊 Dimensione:</strong> <span id="image-size"></span></div>
+                            <div><strong>🎨 Formato:</strong> <span id="image-type"></span></div>
                         </div>
                         <button class="remove-image-btn" onclick="removeCustomImage()">🗑️ Rimuovi Immagine</button>
                     </div>
@@ -1317,170 +1487,170 @@
             </div>
 
             <!-- 3. Etichetta -->
-            <div class="section fade-in">
-                <h3 class="section-title">Etichetta</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">🏷️ Etichetta</h3>
                 <div class="option-group" id="label">
                     <div class="option selected" onclick="selectOption('label', this, 'Nintendo', 0)">
                         <input type="radio" name="label" value="Nintendo" checked>
-                        <span class="option-label">Nintendo (originale) 🏷️</span>
+                        <span class="option-label">🎯 Nintendo (originale)</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('label', this, 'Personalizzata normale', 5)">
                         <input type="radio" name="label" value="Personalizzata normale">
-                        <span class="option-label">Personalizzata normale 🎨</span>
+                        <span class="option-label">🎨 Personalizzata normale</span>
                         <span class="option-price">+5€</span>
                     </div>
                     <div class="option" onclick="selectOption('label', this, 'Personalizzata olografica', 5)">
                         <input type="radio" name="label" value="Personalizzata olografica">
-                        <span class="option-label">Personalizzata olografica ✨</span>
+                        <span class="option-label">✨ Personalizzata olografica</span>
                         <span class="option-price">+5€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 4. Batteria -->
-            <div class="section fade-in">
-                <h3 class="section-title">Batteria</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">🔋 Batteria</h3>
                 <div class="option-group" id="battery">
                     <div class="option selected" onclick="selectOption('battery', this, 'Originale', 0)">
                         <input type="radio" name="battery" value="Originale" checked>
-                        <span class="option-label">Originale 🔋</span>
+                        <span class="option-label">🔋 Originale</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('battery', this, '850mAh', 10)">
                         <input type="radio" name="battery" value="850mAh">
-                        <span class="option-label">850mAh ⚡</span>
+                        <span class="option-label">⚡ 850mAh</span>
                         <span class="option-price">+10€</span>
                     </div>
                     <div class="option" onclick="selectOption('battery', this, '1600mAh', 20)">
                         <input type="radio" name="battery" value="1600mAh">
-                        <span class="option-label">1600mAh 🚀</span>
+                        <span class="option-label">🚀 1600mAh</span>
                         <span class="option-price">+20€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 5. Audio -->
-            <div class="section fade-in">
-                <h3 class="section-title">Audio</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">🔊 Audio</h3>
                 <div class="option-group" id="audio">
                     <div class="option selected" onclick="selectOption('audio', this, 'Originale', 0)">
                         <input type="radio" name="audio" value="Originale" checked>
-                        <span class="option-label">Originale 🔊</span>
+                        <span class="option-label">🔊 Originale</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('audio', this, 'Nuovo', 10)">
                         <input type="radio" name="audio" value="Nuovo">
-                        <span class="option-label">Nuovo 🎵</span>
+                        <span class="option-label">🎵 Nuovo</span>
                         <span class="option-price">+10€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 6. Display -->
-            <div class="section fade-in">
-                <h3 class="section-title">Display</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">📺 Display</h3>
                 <div class="option-group" id="display">
                     <div class="option selected" onclick="selectOption('display', this, 'Originale', 0)">
                         <input type="radio" name="display" value="Originale" checked>
-                        <span class="option-label">Originale 📺</span>
+                        <span class="option-label">📺 Originale</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('display', this, 'IPS', 60)">
                         <input type="radio" name="display" value="IPS">
-                        <span class="option-label">IPS ✨</span>
+                        <span class="option-label">✨ IPS</span>
                         <span class="option-price">+60€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 7. Kit LED -->
-            <div class="section fade-in">
-                <h3 class="section-title">Kit LED</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">💡 Kit LED</h3>
                 <div class="option-group" id="led-kit">
                     <div class="option selected" onclick="selectOption('led-kit', this, 'No', 0)">
                         <input type="radio" name="led-kit" value="No" checked>
-                        <span class="option-label">No 🌙</span>
+                        <span class="option-label">🌙 No</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('led-kit', this, 'Sì', 35)">
                         <input type="radio" name="led-kit" value="Sì">
-                        <span class="option-label">Sì ✨</span>
+                        <span class="option-label">✨ Sì</span>
                         <span class="option-price">+35€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 8. Box Personalizzato -->
-            <div class="section fade-in">
-                <h3 class="section-title">Box Personalizzato</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">📦 Box Personalizzato</h3>
                 <div class="option-group" id="custom-box">
                     <div class="option selected" onclick="selectOption('custom-box', this, 'No', 0)">
                         <input type="radio" name="custom-box" value="No" checked>
-                        <span class="option-label">No 📦</span>
+                        <span class="option-label">📦 No</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('custom-box', this, 'Sì', 20)">
                         <input type="radio" name="custom-box" value="Sì">
-                        <span class="option-label">Sì 🎁</span>
+                        <span class="option-label">🎁 Sì</span>
                         <span class="option-price">+20€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 9. Cover Trasparente -->
-            <div class="section fade-in">
-                <h3 class="section-title">Cover Trasparente</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">🔍 Cover Trasparente</h3>
                 <div class="option-group" id="transparent-cover">
                     <div class="option selected" onclick="selectOption('transparent-cover', this, 'No', 0)">
                         <input type="radio" name="transparent-cover" value="No" checked>
-                        <span class="option-label">No 🚫</span>
+                        <span class="option-label">🚫 No</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('transparent-cover', this, 'Sì', 5)">
                         <input type="radio" name="transparent-cover" value="Sì">
-                        <span class="option-label">Sì 🔍</span>
+                        <span class="option-label">🔍 Sì</span>
                         <span class="option-price">+5€</span>
                     </div>
                 </div>
             </div>
 
             <!-- 10. Game Boy fornito dal cliente -->
-            <div class="section fade-in">
-                <h3 class="section-title">Game Boy fornito dal cliente</h3>
+            <div class="section scroll-animate">
+                <h3 class="section-title">✅ Game Boy fornito dal cliente</h3>
                 <div class="option-group" id="customer-gameboy">
                     <div class="option selected" onclick="selectOption('customer-gameboy', this, 'No', 0)">
                         <input type="radio" name="customer-gameboy" value="No" checked>
-                        <span class="option-label">No 🚫</span>
+                        <span class="option-label">🚫 No</span>
                         <span class="option-price">Gratis</span>
                     </div>
                     <div class="option" onclick="selectOption('customer-gameboy', this, 'Sì', -50)">
                         <input type="radio" name="customer-gameboy" value="Sì">
-                        <span class="option-label">Sì ✅</span>
+                        <span class="option-label">✅ Sì</span>
                         <span class="option-price">-50€</span>
                     </div>
                 </div>
             </div>
 
-            <div class="customer-form">
-                <h3 class="form-title">🦸‍♂️ Dati del Supereroe</h3>
+            <div class="customer-form scroll-animate">
+                <h3 class="form-title">👤 Informazioni Cliente</h3>
                 <div class="form-group">
-                    <label class="form-label field-required" for="customer-name">Nome Cliente</label>
-                    <input type="text" id="customer-name" class="form-input" placeholder="Il tuo nome da supereroe..." required>
-                    <div class="validation-message" id="name-error">Il nome è obbligatorio</div>
+                    <label class="form-label field-required" for="customer-name">📝 Nome Cliente</label>
+                    <input type="text" id="customer-name" class="form-input" placeholder="Il tuo nome..." required>
+                    <div class="validation-message" id="name-error">❌ Il nome è obbligatorio</div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label field-required" for="customer-contact">Contatto (Email o Instagram)</label>
+                    <label class="form-label field-required" for="customer-contact">📧 Contatto (Email o Instagram)</label>
                     <input type="text" id="customer-contact" class="form-input" placeholder="email@example.com o @instagram" required>
-                    <div class="validation-message" id="contact-error">Il contatto è obbligatorio</div>
+                    <div class="validation-message" id="contact-error">❌ Il contatto è obbligatorio</div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="customer-notes">Note Personali</label>
+                    <label class="form-label" for="customer-notes">💭 Note Personali</label>
                     <textarea id="customer-notes" class="form-textarea" placeholder="Raccontaci cosa rende speciale il tuo Game Boy..."></textarea>
                 </div>
                 
                 <div class="order-id">
-                    <span>🆔 Codice Ordine: <span id="order-code">RETRO-GB-2025-001</span></span>
+                    🆔 Codice Ordine: <span id="order-code">RETRO-GB-2025-001</span>
                 </div>
 
                 <div class="action-buttons">
@@ -1503,50 +1673,54 @@
                 </div>
             </div>
 
-            <h3 class="summary-title">🎯 Riepilogo Configurazione</h3>
+            <h3 class="summary-title">📋 Riepilogo Configurazione</h3>
             <div id="summary-content">
                 <div class="summary-item">
-                    <span>Modello:</span>
+                    <span>🎮 Modello:</span>
                     <span id="summary-model">Game Boy Advance SP</span>
                 </div>
                 <div class="summary-item">
-                    <span>Modifica:</span>
+                    <span>🛠️ Modifica:</span>
                     <span id="summary-modification">Con scocca semplice</span>
                 </div>
+                <div class="summary-item" id="summary-shell-color-item" style="display: none;">
+                    <span>🎨 Colore Scocca:</span>
+                    <span id="summary-shell-color">Grigio Solido</span>
+                </div>
                 <div class="summary-item" id="summary-custom-image-item" style="display: none;">
-                    <span>Immagine:</span>
-                    <span id="summary-custom-image">Caricata ✅</span>
+                    <span>🖼️ Immagine:</span>
+                    <span id="summary-custom-image">Caricata</span>
                 </div>
                 <div class="summary-item">
-                    <span>Etichetta:</span>
+                    <span>🏷️ Etichetta:</span>
                     <span id="summary-label">Nintendo</span>
                 </div>
                 <div class="summary-item">
-                    <span>Batteria:</span>
+                    <span>🔋 Batteria:</span>
                     <span id="summary-battery">Originale</span>
                 </div>
                 <div class="summary-item">
-                    <span>Audio:</span>
+                    <span>🔊 Audio:</span>
                     <span id="summary-audio">Originale</span>
                 </div>
                 <div class="summary-item">
-                    <span>Display:</span>
+                    <span>📺 Display:</span>
                     <span id="summary-display">Originale</span>
                 </div>
                 <div class="summary-item">
-                    <span>Kit LED:</span>
+                    <span>💡 Kit LED:</span>
                     <span id="summary-led">No</span>
                 </div>
                 <div class="summary-item">
-                    <span>Box:</span>
+                    <span>📦 Box:</span>
                     <span id="summary-box">No</span>
                 </div>
                 <div class="summary-item">
-                    <span>Cover:</span>
+                    <span>🔍 Cover:</span>
                     <span id="summary-cover">No</span>
                 </div>
                 <div class="summary-item">
-                    <span>GB Cliente:</span>
+                    <span>✅ GB Cliente:</span>
                     <span id="summary-customer-gb">No</span>
                 </div>
                 <div class="summary-item">
@@ -1567,27 +1741,27 @@
             </div>
 
             <div class="ai-assistant">
-                <h3 class="ai-title">AI Assistant Intelligente</h3>
+                <h3 class="ai-title">🤖 Assistente AI Intelligente</h3>
                 
                 <div class="ai-suggestions" id="ai-suggestions">
                     <div class="suggestion">
-                        💡 <strong>Consiglio Pro:</strong> Con la scocca semplice, valuta l'aggiunta del display IPS per un'esperienza visiva superiore! È la combo preferita dai nostri supereroi! 🦸‍♂️
+                        💡 <strong>Consiglio Pro:</strong> Con la scocca semplice, valuta l'aggiunta del display IPS per un'esperienza visiva superiore! È la combo preferita dai nostri clienti! ✨
                     </div>
                 </div>
 
                 <div class="hero-name-generator">
-                    <h4 style="color: var(--primary-yellow); margin-bottom: 1rem;">🦸‍♂️ Il Tuo Nome da Supereroe</h4>
+                    <h4 style="color: var(--accent-color); margin-bottom: 1rem;">🦸‍♂️ Il Tuo Nome da Supereroe</h4>
                     <div class="hero-name" id="hero-name">Captain Pixel</div>
-                    <button class="btn btn-primary" onclick="generateHeroName()">🎲 Genera Nuovo Nome</button>
+                    <button class="btn btn-copy" onclick="generateHeroName()">🎲 Genera Nuovo Nome</button>
                 </div>
 
                 <div class="faq-section">
-                    <h4 style="color: var(--success-green); margin-bottom: 1.5rem;">❓ Domande Frequenti</h4>
+                    <h4 style="color: var(--success-color); margin-bottom: 1rem;">❓ Domande Frequenti</h4>
                     
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>🏷️ Che differenza c'è tra etichetta normale e olografica?</span>
-                            <span>+</span>
+                            <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
                             L'etichetta normale ha colori vividi e stampa di alta qualità, perfetta per design personalizzati. L'olografica invece ha effetti prismatici che cambiano colore con la luce - un vero spettacolo che cattura l'attenzione! È il tocco premium che distingue i veri collezionisti! 🌈
@@ -1597,7 +1771,7 @@
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>🎮 Che differenza c'è tra display originale e IPS?</span>
-                            <span>+</span>
+                            <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
                             Il display IPS è una vera rivoluzione! Offre colori più vividi del 300%, migliore visibilità a 178° di angolazione e retroilluminazione uniforme. È come passare da una TV del 1990 a un monitor gaming del 2025! 🌟
@@ -1607,17 +1781,17 @@
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>⚡ Quale batteria mi consigliate per l'autonomia?</span>
-                            <span>+</span>
+                            <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            Dipende dal tuo stile! La 850mAh è perfetta per 8-12 ore di gioco (uso normale), mentre la 1600mAh ti garantisce 15-20 ore di autonomia continua - ideale per veri gamer e lunghi viaggi! È la scelta di Tony Stark! 🚀
+                            Dipende dal tuo stile! La 850mAh è perfetta per 8-12 ore di gioco (uso normale), mentre la 1600mAh ti garantisce 15-20 ore di autonomia continua - ideale per veri gamer e lunghi viaggi! 🚀
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>✨ Il Kit LED vale davvero la spesa?</span>
-                            <span>+</span>
+                            <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
                             ASSOLUTAMENTE SÌ! Il Kit LED trasforma il tuo Game Boy in uno spettacolo luminoso che fa girare la testa. Perfetto per giocare al buio, creare atmosfera e diventare il centro dell'attenzione. Effetto WOW garantito! 🌈
@@ -1627,7 +1801,7 @@
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>🎨 Come funziona l'upload dell'immagine personalizzata?</span>
-                            <span>+</span>
+                            <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
                             Quando scegli "scocca personalizzata", puoi caricare la tua immagine (JPG/PNG, max 10MB). La tua immagine verrà stampata direttamente sulla scocca con tecnologia di alta qualità. Perfetto per logo, arte personale o design unici! 🖼️
@@ -1639,7 +1813,7 @@
     </div>
 
     <div class="notification" id="notification">
-        <span id="notification-text">Configurazione salvata!</span>
+        <span id="notification-text">✅ Configurazione salvata!</span>
     </div>
 
     <script>
@@ -1647,6 +1821,7 @@
         let configuration = {
             'gameboy-model': { name: 'Game Boy Advance SP', price: 0 },
             'modification-level': { name: 'Con scocca semplice', price: 100 },
+            'shell-color': { name: 'Grey Solid', price: 0 },
             'label': { name: 'Nintendo', price: 0 },
             'battery': { name: 'Originale', price: 0 },
             'audio': { name: 'Originale', price: 0 },
@@ -1665,6 +1840,7 @@
             budget: {
                 'gameboy-model': { name: 'Game Boy Advance SP', price: 0 },
                 'modification-level': { name: 'Solo Game Boy', price: 80 },
+                'shell-color': { name: 'Grey Solid', price: 0 },
                 'label': { name: 'Nintendo', price: 0 },
                 'battery': { name: 'Originale', price: 0 },
                 'audio': { name: 'Originale', price: 0 },
@@ -1677,6 +1853,7 @@
             gaming: {
                 'gameboy-model': { name: 'Game Boy Advance SP', price: 0 },
                 'modification-level': { name: 'Con scocca semplice', price: 100 },
+                'shell-color': { name: 'Solid Blue', price: 0 },
                 'label': { name: 'Personalizzata normale', price: 5 },
                 'battery': { name: '1600mAh', price: 20 },
                 'audio': { name: 'Nuovo', price: 10 },
@@ -1689,6 +1866,7 @@
             collector: {
                 'gameboy-model': { name: 'Game Boy Advance SP', price: 0 },
                 'modification-level': { name: 'Con scocca personalizzata', price: 120 },
+                'shell-color': { name: 'Clear Purple', price: 0 },
                 'label': { name: 'Personalizzata olografica', price: 5 },
                 'battery': { name: '1600mAh', price: 20 },
                 'audio': { name: 'Nuovo', price: 10 },
@@ -1709,11 +1887,11 @@
         ];
 
         const motivationalPhrases = [
-            "🕹️ Non tutti gli eroi indossano mantelli... alcuni impugnano un Game Boy unico.",
-            "🕷️ Con grande potere arriva un Game Boy ancora più personalizzato.",
-            "⚡ Il tuo Game Boy. Il tuo potere. Il tuo stile.",
-            "🦸‍♂️ Ogni supereroe ha bisogno del proprio Game Boy leggendario.",
-            "🚀 Pronto a salvare il mondo... un pixel alla volta!"
+            "🎮 Non tutti gli eroi indossano mantelli... alcuni impugnano un Game Boy unico al mondo! 🦸‍♂️",
+            "⚡ Con grande potere arriva un Game Boy ancora più personalizzato! ✨",
+            "🚀 Il tuo Game Boy. Il tuo potere. Il tuo stile unico! 🎨",
+            "🦸‍♂️ Ogni supereroe ha bisogno del proprio Game Boy leggendario! 🏆",
+            "🌟 Pronto a salvare il mondo... un pixel alla volta! 🎯"
         ];
 
         const aiSuggestions = {
@@ -1721,12 +1899,84 @@
                 "💡 <strong>Primo consiglio:</strong> Stai iniziando con una configurazione base solida! Per un upgrade graduale, considera prima il display IPS - trasformerà completamente la tua esperienza visiva! 🌟"
             ],
             intermediate: [
-                "🔥 <strong>Combo Killer:</strong> Display IPS + Kit LED = esperienza cinematografica! È la combinazione più richiesta dai nostri supereroi! ✨"
+                "🔥 <strong>Combo Killer:</strong> Display IPS + Kit LED = esperienza cinematografica! È la combinazione più richiesta dai nostri clienti! ✨"
             ],
             advanced: [
                 "🏆 <strong>Setup Leggendario:</strong> Complimenti! Stai creando un Game Boy da vero collezionista. Ogni supereroe ha bisogno del proprio gadget perfetto! 🦸‍♂️"
             ]
         };
+
+        // === FUNZIONI PER COLORE SCOCCA ===
+        function selectShellColor(element, colorName) {
+            // Rimuovi selezione da tutti gli altri colori
+            const options = element.parentNode.querySelectorAll('.shell-color-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Seleziona il colore cliccato
+            element.classList.add('selected');
+            
+            // Aggiorna configurazione
+            configuration['shell-color'] = { name: colorName, price: 0 };
+            
+            // Aggiorna summary e salva
+            updateSummary();
+            updateGameBoyPreview();
+            saveConfiguration();
+            
+            // Effetto visivo
+            element.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1.05)';
+            }, 200);
+        }
+
+        function toggleShellColorContainer() {
+            const colorContainer = document.getElementById('shell-color-container');
+            const isCustomShell = configuration['modification-level']?.name === 'Con scocca personalizzata';
+            
+            if (colorContainer) {
+                if (isCustomShell) {
+                    colorContainer.classList.add('active');
+                } else {
+                    colorContainer.classList.remove('active');
+                }
+            }
+            
+            updateSummaryShellColor();
+        }
+
+        function updateSummaryShellColor() {
+            const summaryShellColorItem = document.getElementById('summary-shell-color-item');
+            const summaryShellColorText = document.getElementById('summary-shell-color');
+            
+            const isCustomShell = configuration['modification-level']?.name === 'Con scocca personalizzata';
+            
+            if (isCustomShell && summaryShellColorItem && summaryShellColorText) {
+                summaryShellColorItem.style.display = 'flex';
+                // Traduci i nomi dei colori per il summary
+                const colorTranslations = {
+                    'Grey Solid': 'Grigio Solido',
+                    'Black': 'Nero',
+                    'Clear White': 'Bianco Trasparente',
+                    'Solid Green': 'Verde Solido',
+                    'Solid Yellow': 'Giallo Solido',
+                    'Solid Purple': 'Viola Solido',
+                    'Solid Red': 'Rosso Solido',
+                    'Solid Orange': 'Arancione Solido',
+                    'Solid Blue': 'Blu Solido',
+                    'Clear Blue': 'Blu Trasparente',
+                    'Amber': 'Ambra',
+                    'Clear Purple': 'Viola Trasparente',
+                    'Clear Red': 'Rosso Trasparente',
+                    'Clear Yellow': 'Giallo Trasparente',
+                    'Clear Black': 'Nero Trasparente'
+                };
+                const colorName = configuration['shell-color']?.name || 'Grey Solid';
+                summaryShellColorText.textContent = colorTranslations[colorName] || colorName;
+            } else if (summaryShellColorItem) {
+                summaryShellColorItem.style.display = 'none';
+            }
+        }
 
         // === FUNZIONI UPLOAD IMMAGINI ===
         function setupImageUpload() {
@@ -1738,7 +1988,6 @@
             }
 
             if (uploadContainer) {
-                // Gestione drag and drop
                 uploadContainer.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     uploadContainer.classList.add('dragover');
@@ -1769,27 +2018,20 @@
         }
 
         function processImageFile(file) {
-            const errorContainer = document.getElementById('upload-error');
-            const errorText = document.getElementById('upload-error-text');
-            
-            // Reset errori precedenti
             hideUploadError();
 
-            // Validazione tipo file
             const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
             if (!allowedTypes.includes(file.type)) {
                 showUploadError('⚠️ Formato non supportato! Usa solo JPG o PNG.');
                 return;
             }
 
-            // Validazione dimensione file (10MB = 10 * 1024 * 1024 bytes)
             const maxSize = 10 * 1024 * 1024;
             if (file.size > maxSize) {
                 showUploadError('⚠️ File troppo grande! Dimensione massima: 10MB.');
                 return;
             }
 
-            // Lettura del file
             const reader = new FileReader();
             reader.onload = function(e) {
                 displayImagePreview(file, e.target.result);
@@ -1801,7 +2043,7 @@
                 };
                 updateSummaryImage();
                 saveConfiguration();
-                showNotification('🎨 Immagine caricata con successo!', 'success');
+                showNotification('🎨 Immagine caricata con successo! ✅', 'success');
             };
 
             reader.onerror = function() {
@@ -1844,7 +2086,7 @@
 
             updateSummaryImage();
             saveConfiguration();
-            showNotification('🗑️ Immagine rimossa!', 'success');
+            showNotification('🗑️ Immagine rimossa! ✅', 'success');
         }
 
         function updateSummaryImage() {
@@ -1902,7 +2144,6 @@
                     uploadContainer.classList.add('active');
                 } else {
                     uploadContainer.classList.remove('active');
-                    // Se si cambia opzione, rimuovi l'immagine caricata
                     if (customImageData) {
                         removeCustomImage();
                     }
@@ -1950,7 +2191,6 @@
             
             configuration = { ...quickConfigs[type] };
             
-            // Reset dell'immagine se non è scocca personalizzata
             if (configuration['modification-level']?.name !== 'Con scocca personalizzata') {
                 customImageData = null;
             }
@@ -1960,48 +2200,93 @@
             updateGameBoyPreview();
             updateAISuggestions();
             toggleImageUploadContainer();
+            toggleShellColorContainer();
             saveConfiguration();
             
-            showNotification(`🚀 Configurazione ${type.charAt(0).toUpperCase() + type.slice(1)} applicata!`, 'success');
+            const configNames = {
+                'budget': 'Budget',
+                'gaming': 'Gaming Pro', 
+                'collector': 'Collezione'
+            };
+            
+            showNotification(`🚀 Configurazione ${configNames[type]} applicata! ✨`, 'success');
         }
 
         function updateUIFromConfiguration() {
             Object.entries(configuration).forEach(([category, config]) => {
-                const options = document.querySelectorAll(`#${category} .option`);
-                options.forEach(option => {
-                    const input = option.querySelector('input');
-                    if (input && input.value === config.name) {
-                        option.classList.add('selected');
-                        input.checked = true;
-                    } else {
-                        option.classList.remove('selected');
-                        if (input) input.checked = false;
-                    }
-                });
+                if (category === 'shell-color') {
+                    const shellColorOptions = document.querySelectorAll('.shell-color-option');
+                    shellColorOptions.forEach(option => {
+                        const colorName = option.querySelector('.shell-color-name').textContent;
+                        // Map dei nomi tradotti ai nomi inglesi
+                        const nameMap = {
+                            'Grigio Solido': 'Grey Solid',
+                            'Nero': 'Black',
+                            'Bianco Trasparente': 'Clear White',
+                            'Verde Solido': 'Solid Green',
+                            'Giallo Solido': 'Solid Yellow',
+                            'Viola Solido': 'Solid Purple',
+                            'Rosso Solido': 'Solid Red',
+                            'Arancione Solido': 'Solid Orange',
+                            'Blu Solido': 'Solid Blue',
+                            'Blu Trasparente': 'Clear Blue',
+                            'Ambra': 'Amber',
+                            'Viola Trasparente': 'Clear Purple',
+                            'Rosso Trasparente': 'Clear Red',
+                            'Giallo Trasparente': 'Clear Yellow',
+                            'Nero Trasparente': 'Clear Black'
+                        };
+                        const englishName = Object.keys(nameMap).find(key => nameMap[key] === config.name) ? config.name : 
+                                          Object.values(nameMap).includes(colorName) ? colorName : config.name;
+                        
+                        if (colorName === config.name || nameMap[colorName] === config.name) {
+                            option.classList.add('selected');
+                        } else {
+                            option.classList.remove('selected');
+                        }
+                    });
+                } else {
+                    const options = document.querySelectorAll(`#${category} .option`);
+                    options.forEach(option => {
+                        const input = option.querySelector('input');
+                        if (input && input.value === config.name) {
+                            option.classList.add('selected');
+                            input.checked = true;
+                        } else {
+                            option.classList.remove('selected');
+                            if (input) input.checked = false;
+                        }
+                    });
+                }
             });
         }
 
         // === SELEZIONE OPZIONI ===
         function selectOption(category, element, name, price) {
+            // Rimuovi selezione da tutte le opzioni del gruppo
             const options = element.parentNode.querySelectorAll('.option');
             options.forEach(opt => {
                 opt.classList.remove('selected');
                 opt.querySelector('input').checked = false;
             });
             
+            // Seleziona l'opzione cliccata
             element.classList.add('selected');
             element.querySelector('input').checked = true;
             
-            element.style.transform = 'scale(1.02)';
+            // Effetto visivo
+            element.style.transform = 'translateX(8px) scale(1.02)';
             setTimeout(() => {
-                element.style.transform = 'scale(1)';
+                element.style.transform = 'translateX(5px)';
             }, 200);
             
+            // Aggiorna configurazione
             configuration[category] = { name: name, price: price };
             
             // Gestione speciale per il livello di modifica
             if (category === 'modification-level') {
                 toggleImageUploadContainer();
+                toggleShellColorContainer();
             }
             
             updateSummary();
@@ -2061,7 +2346,7 @@
             if (configuration['display']?.name === 'IPS') days += 2;
             if (configuration['led-kit']?.name === 'Sì') days += 2;
             if (configuration['label']?.name && configuration['label'].name !== 'Nintendo') days += 1;
-            if (customImageData) days += 2; // Tempo extra per elaborazione immagine
+            if (customImageData) days += 2;
             
             deliveryTime.textContent = `${days}-${days + 7} giorni lavorativi`;
         }
@@ -2099,16 +2384,17 @@
             const priceElement = document.getElementById('total-price');
             if (priceElement) {
                 priceElement.style.transform = 'scale(1.1)';
-                priceElement.style.color = '#fcd34d';
+                priceElement.style.filter = 'brightness(1.2)';
                 priceElement.textContent = `${total}€`;
                 
                 setTimeout(() => {
                     priceElement.style.transform = 'scale(1)';
-                    priceElement.style.color = '';
+                    priceElement.style.filter = 'brightness(1)';
                 }, 300);
             }
             
             updateSummaryImage();
+            updateSummaryShellColor();
             calculateSavings();
             updateDeliveryEstimate();
         }
@@ -2136,13 +2422,12 @@
                 suggestionLevel = 'intermediate';
             }
             
-            // Suggerimenti specifici per scocca personalizzata
             if (configuration['modification-level']?.name === 'Con scocca personalizzata' && !customImageData) {
                 customSuggestions.push('🎨 <strong>Immagine Mancante:</strong> Hai scelto la scocca personalizzata! Non dimenticare di caricare la tua immagine per completare il design unico! 📁');
             }
             
             if (configuration['display']?.name === 'IPS' && configuration['led-kit']?.name === 'No') {
-                customSuggestions.push('🌟 <strong>Combo Perfetta:</strong> Hai scelto il display IPS! Il Kit LED completerebbero il setup da vero supereroe - immagina come brillerà! ✨');
+                customSuggestions.push('🌟 <strong>Combo Perfetta:</strong> Hai scelto il display IPS! Il Kit LED completerebbe il setup perfetto - immagina come brillerà! ✨');
             }
             
             if (configuration['label']?.name && configuration['label'].name !== 'Nintendo') {
@@ -2170,7 +2455,6 @@
                 
                 setTimeout(() => {
                     heroElement.textContent = randomName;
-                    heroElement.style.transition = 'all 0.4s ease';
                     heroElement.style.opacity = '1';
                     heroElement.style.transform = 'scale(1)';
                 }, 200);
@@ -2180,22 +2464,23 @@
         // === FAQ ===
         function toggleFAQ(element) {
             const answer = element.nextElementSibling;
-            const icon = element.querySelector('span:last-child');
+            const icon = element.querySelector('.faq-icon');
             const isActive = answer.classList.contains('active');
             
+            // Chiudi tutte le altre FAQ
             document.querySelectorAll('.faq-answer').forEach(faq => {
                 faq.classList.remove('active');
             });
-            document.querySelectorAll('.faq-question span:last-child').forEach(i => {
-                i.textContent = '+';
-                i.style.transform = 'rotate(0deg)';
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.classList.remove('active');
+                const ico = q.querySelector('.faq-icon');
+                if (ico) ico.textContent = '+';
             });
             
             if (!isActive) {
                 answer.classList.add('active');
-                icon.textContent = '-';
-                icon.style.transform = 'rotate(180deg)';
-                icon.style.transition = 'transform 0.3s ease';
+                element.classList.add('active');
+                if (icon) icon.textContent = '-';
             }
         }
 
@@ -2236,11 +2521,13 @@
             
             if (isEmpty) {
                 field.classList.add('validation-error');
+                error.classList.add('show');
                 error.style.display = 'block';
                 return false;
             }
             
             field.classList.remove('validation-error');
+            error.classList.remove('show');
             error.style.display = 'none';
             return true;
         }
@@ -2250,7 +2537,10 @@
             const error = document.getElementById(errorId);
             
             if (field) field.classList.remove('validation-error');
-            if (error) error.style.display = 'none';
+            if (error) {
+                error.classList.remove('show');
+                error.style.display = 'none';
+            }
         }
 
         function validateAllFields() {
@@ -2269,7 +2559,7 @@
         // === CONDIVISIONE ===
         function copyConfigurationText() {
             if (!validateAllFields()) {
-                showNotification('❌ Completa prima i campi obbligatori!', 'error');
+                showNotification('❌ Completa prima i campi obbligatori! 📝', 'error');
                 return;
             }
             
@@ -2286,28 +2576,29 @@
                 }
             });
             
-            let configText = `🕷️ RETROAVIA - Il Supereroe dei Game Boy 🕷️\n\n`;
-            configText += `🦸‍♂️ DATI SUPEREROE:\n`;
+            let configText = `🎮 RETROAVIA - Il Configuratore Game Boy Professionale 🎮\n\n`;
+            configText += `👤 DATI CLIENTE:\n`;
             configText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            configText += `Nome: ${customerName}\n`;
-            configText += `Contatto: ${customerContact}\n`;
-            configText += `Note: ${customerNotes}\n`;
-            configText += `Nome Supereroe: ${heroName}\n`;
-            configText += `Codice Ordine: ${orderId}\n`;
-            configText += `Data: ${new Date().toLocaleDateString('it-IT')}\n\n`;
+            configText += `📝 Nome: ${customerName}\n`;
+            configText += `📧 Contatto: ${customerContact}\n`;
+            configText += `💭 Note: ${customerNotes}\n`;
+            configText += `🦸‍♂️ Nome Supereroe: ${heroName}\n`;
+            configText += `🆔 Codice Ordine: ${orderId}\n`;
+            configText += `📅 Data: ${new Date().toLocaleDateString('it-IT')}\n\n`;
             
-            configText += `⚡ CONFIGURAZIONE LEGGENDARIA:\n`;
+            configText += `⚡ CONFIGURAZIONE GAME BOY:\n`;
             configText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
             
             const configLabels = {
                 'gameboy-model': '🎮 Modello Game Boy',
-                'modification-level': '🛡️ Livello di Modifica',
+                'modification-level': '🛠️ Livello di Modifica',
+                'shell-color': '🎨 Colore Scocca',
                 'label': '🏷️ Etichetta',
                 'battery': '🔋 Batteria',
-                'audio': '🎵 Audio',
+                'audio': '🔊 Audio',
                 'display': '📺 Display',
-                'led-kit': '✨ Kit LED',
-                'custom-box': '🎁 Box Personalizzato',
+                'led-kit': '💡 Kit LED',
+                'custom-box': '📦 Box Personalizzato',
                 'transparent-cover': '🔍 Cover Trasparente',
                 'customer-gameboy': '✅ Game Boy Cliente'
             };
@@ -2320,9 +2611,8 @@
                 }
             });
             
-            // Aggiungi info sull'immagine personalizzata
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                configText += `🎨 Immagine Personalizzata: ${customImageData.name} (${formatFileSize(customImageData.size)})\n`;
+                configText += `🖼️ Immagine Personalizzata: ${customImageData.name} (${formatFileSize(customImageData.size)})\n`;
             }
             
             configText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -2333,7 +2623,7 @@
             configText += `🚀 Configurazione creata con RetroAvia\n`;
             configText += `🌟 Dove nascono le leggende del gaming!\n`;
             configText += `📷 Seguici su Instagram: @retroavia_\n`;
-            configText += `🎮 Il tuo Game Boy sarà unico al mondo!`;
+            configText += `🎮 Il tuo Game Boy sarà unico al mondo! ✨`;
             
             navigator.clipboard.writeText(configText).then(() => {
                 showNotification('📋 Configurazione copiata negli appunti! ✅', 'success');
@@ -2346,7 +2636,7 @@
                     document.execCommand('copy');
                     showNotification('📋 Configurazione copiata negli appunti! ✅', 'success');
                 } catch (err) {
-                    showNotification('❌ Impossibile copiare. Seleziona e copia manualmente!', 'error');
+                    showNotification('❌ Impossibile copiare. Seleziona e copia manualmente! 🔄', 'error');
                 }
                 document.body.removeChild(textArea);
             });
@@ -2354,7 +2644,7 @@
 
         function shareViaEmail() {
             if (!validateAllFields()) {
-                showNotification('❌ Completa prima i campi obbligatori!', 'error');
+                showNotification('❌ Completa prima i campi obbligatori! 📝', 'error');
                 return;
             }
             
@@ -2369,28 +2659,28 @@
                 }
             });
             
-            let bodyText = `🕷️ RETROAVIA\n\nSupereroe: ${customerName} (${heroName})\nTotale: ${total}€\n`;
+            let bodyText = `🎮 RETROAVIA\n\n👤 Cliente: ${customerName} (${heroName})\n💰 Totale: ${total}€\n`;
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                bodyText += `\nImmagine personalizzata: ${customImageData.name}\n`;
+                bodyText += `\n🖼️ Immagine personalizzata: ${customImageData.name}\n`;
             }
             
             bodyText += `\n🚀 Creato con RetroAvia!`;
             
-            const subject = `🕷️ RetroAvia - Configurazione ${heroName} (${orderId})`;
+            const subject = `🎮 RetroAvia - Configurazione ${heroName} (${orderId})`;
             const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
             
             try {
                 window.open(mailtoLink);
-                showNotification('📧 Email preparata!', 'success');
+                showNotification('📧 Email preparata! ✅', 'success');
             } catch (error) {
-                showNotification('❌ Errore apertura email!', 'error');
+                showNotification('❌ Errore apertura email! 🔄', 'error');
             }
         }
 
         function shareViaWhatsApp() {
             if (!validateAllFields()) {
-                showNotification('❌ Completa prima i campi obbligatori!', 'error');
+                showNotification('❌ Completa prima i campi obbligatori! 📝', 'error');
                 return;
             }
             
@@ -2404,10 +2694,10 @@
                 }
             });
             
-            let text = `🕷️ *RETROAVIA*\n\nSupereroe: ${customerName} (${heroName})\nTotale: ${total}€\n`;
+            let text = `🎮 *RETROAVIA*\n\n👤 Cliente: ${customerName} (${heroName})\n💰 Totale: ${total}€\n`;
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                text += `\nImmagine personalizzata: ${customImageData.name}\n`;
+                text += `\n🖼️ Immagine personalizzata: ${customImageData.name}\n`;
             }
             
             text += `\n🚀 Creato con RetroAvia!`;
@@ -2416,15 +2706,15 @@
             
             try {
                 window.open(whatsappLink, '_blank');
-                showNotification('📱 WhatsApp aperto!', 'success');
+                showNotification('📱 WhatsApp aperto! ✅', 'success');
             } catch (error) {
-                showNotification('❌ Errore apertura WhatsApp!', 'error');
+                showNotification('❌ Errore apertura WhatsApp! 🔄', 'error');
             }
         }
 
         function shareViaInstagram() {
             if (!validateAllFields()) {
-                showNotification('❌ Completa prima i campi obbligatori!', 'error');
+                showNotification('❌ Completa prima i campi obbligatori! 📝', 'error');
                 return;
             }
             
@@ -2436,21 +2726,21 @@
                 }
             });
             
-            let text = `🕷️ RETROAVIA\n\nSupereroe: ${heroName}\nTotale: ${total}€\n`;
+            let text = `🎮 RETROAVIA\n\n🦸‍♂️ Supereroe: ${heroName}\n💰 Totale: ${total}€\n`;
             
             if (customImageData && configuration['modification-level']?.name === 'Con scocca personalizzata') {
-                text += `\nImmagine personalizzata caricata! 🎨\n`;
+                text += `\n🖼️ Immagine personalizzata caricata! 🎨\n`;
             }
             
             text += `\n#RetroAvia #GameBoy #Retrogaming`;
             
             navigator.clipboard.writeText(text).then(() => {
-                showNotification('📷 Testo copiato! Aprendo Instagram...', 'success');
+                showNotification('📷 Testo copiato! Aprendo Instagram... ✅', 'success');
                 setTimeout(() => {
                     window.open('https://www.instagram.com/retroavia_/', '_blank');
                 }, 1000);
             }).catch(() => {
-                showNotification('📋 Copia manualmente il testo!', 'error');
+                showNotification('📋 Copia manualmente il testo! 🔄', 'error');
                 window.open('https://www.instagram.com/retroavia_/', '_blank');
             });
         }
@@ -2475,12 +2765,6 @@
             }
         }
 
-        function playSelectionEffect() {
-            if (navigator.vibrate) {
-                navigator.vibrate([50, 30, 50]);
-            }
-        }
-
         function handleResize() {
             const container = document.querySelector('.container');
             const summaryPanel = document.querySelector('.summary-panel');
@@ -2492,12 +2776,32 @@
                     summaryPanel.style.top = 'auto';
                 }
             } else {
-                if (container) container.style.gridTemplateColumns = '1fr 380px';
+                if (container) container.style.gridTemplateColumns = '1fr 400px';
                 if (summaryPanel) {
                     summaryPanel.style.position = 'sticky';
                     summaryPanel.style.top = '2rem';
                 }
             }
+        }
+
+        // === ANIMAZIONI SCROLL ===
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
         }
 
         // === INIZIALIZZAZIONE ===
@@ -2516,16 +2820,14 @@
             setupFormValidation();
             setupImageUpload();
             toggleImageUploadContainer();
+            toggleShellColorContainer();
+            initScrollAnimations();
             
             // Animazioni progressive per le sezioni
             const sections = document.querySelectorAll('.section');
             sections.forEach((section, index) => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
                 setTimeout(() => {
-                    section.style.transition = 'all 0.6s ease';
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
+                    section.classList.add('visible');
                 }, index * 100);
             });
 
@@ -2538,16 +2840,12 @@
         window.addEventListener('resize', handleResize);
         window.addEventListener('load', handleResize);
 
+        // Effetti click avanzati
         document.addEventListener('click', function(e) {
             const target = e.target;
             
-            if (target.classList.contains('option') || target.closest('.option')) {
-                playSelectionEffect();
-            }
-            
+            // Effetto ripple per i bottoni
             if (target.classList.contains('btn')) {
-                playSelectionEffect();
-                
                 const ripple = document.createElement('span');
                 const rect = target.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
@@ -2555,7 +2853,7 @@
                 ripple.style.cssText = `
                     position: absolute;
                     border-radius: 50%;
-                    background: rgba(255,255,255,0.6);
+                    background: rgba(255,255,255,0.3);
                     transform: scale(0);
                     animation: ripple 0.6s linear;
                     width: ${size}px;
@@ -2572,6 +2870,25 @@
                 setTimeout(() => ripple.remove(), 600);
             }
         });
+
+        // Supporto accessibilità
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.closest('.option')) {
+                e.target.closest('.option').click();
+            }
+            
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.faq-answer.active').forEach(answer => {
+                    answer.classList.remove('active');
+                    const question = answer.previousElementSibling;
+                    question.classList.remove('active');
+                    const icon = question.querySelector('.faq-icon');
+                    if (icon) icon.textContent = '+';
+                });
+            }
+        });
+
+        console.log('🎮 RetroAvia Configurator caricato con successo! ✨');
     </script>
 </body>
 </html>
